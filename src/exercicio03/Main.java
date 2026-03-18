@@ -20,12 +20,23 @@ public class Main {
 
             switch(opcao) {
                 case 1 -> cadastrar();
+                case 2 -> carregar();
             }
 
         } while(opcao != 5);
     }
 
-    private static void cadastrar() {
+    private static void carregar() {
+        double valor;
+        BilheteUnico bilheteUnico = pesquisar();
+        if(bilheteUnico != null) {
+            System.out.print("Valor da recarga: ");
+            valor = sc.nextDouble();
+            bilheteUnico.carregar(valor);
+        }
+    }
+
+    public static void cadastrar() {
         String nome;
         long cpf;
         String tipoTarifa;
@@ -40,6 +51,21 @@ public class Main {
             bilhete[index] = new BilheteUnico(new Usuario(nome, cpf, tipoTarifa));
             index++;
         }
+        else {
+            System.out.println("Erro ao gerar bilhete! Procure um posto de atendimento");
+        }
 
+    }
+
+    public static BilheteUnico pesquisar() {
+        long cpf;
+        System.out.print("CPF para pesquisar: ");
+        cpf = sc.nextLong();
+        for(int i = 0; i < index; i++) {
+            if(bilhete[i].usuario.cpf == cpf) {
+                return bilhete[i];
+            }
+        }
+        return null;
     }
 }
