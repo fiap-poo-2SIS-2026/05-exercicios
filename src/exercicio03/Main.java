@@ -21,9 +21,30 @@ public class Main {
             switch(opcao) {
                 case 1 -> cadastrar();
                 case 2 -> carregar();
+                case 3 -> consultarSaldo();
+                case 4 -> passarNaCatraca();
+                case 5 -> System.out.println("Até breve!");
+                default -> System.out.println("Opção inválida");
             }
-
+            System.out.println("#######################################");
         } while(opcao != 5);
+    }
+
+    private static void passarNaCatraca() {
+        BilheteUnico bilheteUnico = pesquisar();
+        if(bilheteUnico != null) {
+            if(!bilheteUnico.passarNaCatraca()) {
+                System.out.println("Saldo insuficiente");
+            }
+            System.out.println("Saldo atual: " + bilheteUnico.saldo);
+        }
+    }
+
+    private static void consultarSaldo() {
+        BilheteUnico bilheteUnico = pesquisar();
+        if(bilheteUnico != null) {
+            System.out.println("Saldo atual: " + bilheteUnico.saldo);
+        }
     }
 
     private static void carregar() {
@@ -66,6 +87,7 @@ public class Main {
                 return bilhete[i];
             }
         }
+        System.out.println("Bilhete não encontrado!!");
         return null;
     }
 }
